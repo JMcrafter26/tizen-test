@@ -1,0 +1,29 @@
+{
+  "name": "@cufiys/tizen-test",
+  "version": "0.1.51",
+  "description": "Tizen test app",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JMcrafter26/tizen-test.git"
+  },
+  "scripts": {
+
+  },
+  "devDependencies": {
+
+  },
+  "type": "module",
+  "packageType": "app",
+  "appName": "Tizen Test",
+  "appPath": "index.html",
+  "keys": [
+    "MediaPlayPause",
+    "MediaPlay",
+    "MediaPause",
+    "MediaStop",
+    "MediaTrackPrevious",
+    "MediaTrackNext",
+    "MediaRewind",
+    "MediaFastForward"
+  ]
+}
