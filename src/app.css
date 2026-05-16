@@ -1,2 +1,24 @@
 @import "tailwindcss";
 @plugin "daisyui";
+
+/* Custom Root variables for Netflix feel */
+:root {
+  --p: 0 100% 45%; /* Red 600 in OKLCH approx for the focus */
+  --b1: 0 0% 0%;   /* Pure Black */
+  --b2: 0 0% 5%;   /* Very Dark Gray */
+  --b3: 0 0% 10%;  /* Dark Gray */
+}
+
+/* Force standard DaisyUI sizes to be TV-legible without being huge */
+.btn-xl {
+    height: 4.5rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    font-size: 1.25rem;
+}
+
+/* Ensure focus overrides are crisp */
+:focus {
+    outline: 4px solid white !important;
+    outline-offset: 4px !important;
+}
