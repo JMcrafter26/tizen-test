@@ -14,3 +14,7 @@ It fetches media from the public domain [Wikimedia API](https://commons.wikimedi
 ## If you want to try it out
 
 If you'd like to install the compiled app on your Tizen TV, check out [TizenBrew](https://github.com/reisxd/TizenBrew) for an easy installation process.
+
+## Source Code
+
+The source code is in another branch called [`development`](https://github.com/JMcrafter26/tizen-test/tree/develop). Feel free to check it out
