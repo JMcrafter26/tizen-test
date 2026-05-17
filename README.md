@@ -1,42 +1,31 @@
-# sv
+# Tizen WebApp Test 📺
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+A quick test project to figure out how to build a Tizen OS web app using SvelteKit. 
 
-## Creating a project
+Nothing too crazy or serious here, just a playground to see how these two technologies work together.
 
-If you're seeing this, you've probably already done this step. Congrats!
+## 🛠️ Getting Started
 
-```sh
-# create a new project
-npx sv create my-app
-```
-
-To recreate this project with the same configuration:
+To get the development environment running:
 
 ```sh
-# recreate this project
-npx sv@0.15.3 create --template minimal --types jsdoc --add sveltekit-adapter="adapter:static" --no-install temp-app
+# Install dependencies
+pnpm install
+
+# Start the dev server
+pnpm run dev
 ```
 
-## Developing
+## 📦 Building
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+To build the static assets for Tizen:
 
 ```sh
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+pnpm run build
 ```
 
-## Building
+The output will be generated using the SvelteKit static adapter, ready to be packaged into a Tizen `.wgt` file.
 
-To create a production version of your app:
+## 🚀 Installation
 
-```sh
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+If you actually want to install this on your TV, the easiest way is to use [TizenBrew](https://github.com/reisxd/TizenBrew).
