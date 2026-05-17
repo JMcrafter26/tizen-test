@@ -82,10 +82,6 @@
 </div>
 
 <style>
-    /* Hide the navbar/sidebar shell during playback by setting it to z-0 or hiding it if it matches this route */
-    :global(aside) {
-        display: none !important; /* Total immersion for playback */
-    }
     :global(main) {
         padding: 0 !important;
     }

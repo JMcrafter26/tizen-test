@@ -46,19 +46,47 @@ export function initSpatialNavigation(): () => void {
                 y: targetRect.top + targetRect.height / 2
             };
 
-            const dx = targetCenter.x - currCenter.x;
-            const dy = targetCenter.y - currCenter.y;
-
             let isHeading = false;
+            let primaryDist = 0;
+            let crossDist = 0;
+
             switch(e.key) {
-                case "ArrowUp":    isHeading = dy < 0 && Math.abs(dx) < Math.abs(dy) * 1.5; break;
-                case "ArrowDown":  isHeading = dy > 0 && Math.abs(dx) < Math.abs(dy) * 1.5; break;
-                case "ArrowLeft":  isHeading = dx < 0 && Math.abs(dy) < Math.abs(dx) * 1.5; break;
-                case "ArrowRight": isHeading = dx > 0 && Math.abs(dy) < Math.abs(dx) * 1.5; break;
+                case "ArrowUp":    
+                    isHeading = targetRect.bottom <= currRect.top || (targetCenter.y < currCenter.y && targetRect.top < currRect.top); 
+                    primaryDist = Math.max(0, currRect.top - targetRect.bottom);
+                    crossDist = Math.abs(targetCenter.x - currCenter.x);
+                    break;
+                case "ArrowDown":  
+                    isHeading = targetRect.top >= currRect.bottom || (targetCenter.y > currCenter.y && targetRect.bottom > currRect.bottom); 
+                    primaryDist = Math.max(0, targetRect.top - currRect.bottom);
+                    crossDist = Math.abs(targetCenter.x - currCenter.x);
+                    break;
+                case "ArrowLeft":  
+                    isHeading = targetRect.right <= currRect.left || (targetCenter.x < currCenter.x && targetRect.left < currRect.left); 
+                    primaryDist = Math.max(0, currRect.left - targetRect.right);
+                    crossDist = Math.abs(targetCenter.y - currCenter.y);
+                    break;
+                case "ArrowRight": 
+                    isHeading = targetRect.left >= currRect.right || (targetCenter.x > currCenter.x && targetRect.right > currRect.right); 
+                    primaryDist = Math.max(0, targetRect.left - currRect.right);
+                    crossDist = Math.abs(targetCenter.y - currCenter.y);
+                    break;
             }
 
             if (isHeading) {
-                const distance = Math.pow(dx, 2) + Math.pow(dy, 2);
+                let overlap = 0;
+                if (e.key === "ArrowUp" || e.key === "ArrowDown") {
+                    overlap = Math.max(0, Math.min(currRect.right, targetRect.right) - Math.max(currRect.left, targetRect.left));
+                } else {
+                    overlap = Math.max(0, Math.min(currRect.bottom, targetRect.bottom) - Math.max(currRect.top, targetRect.top));
+                }
+
+                // If elements overlap in the cross axis, prioritize them heavily
+                const adjustedCrossDist = overlap > 0 ? 0 : crossDist;
+                
+                // Weight primary distance more than cross distance
+                const distance = (primaryDist * 10) + adjustedCrossDist; 
+
                 if (distance < minDistance) {
                     minDistance = distance;
                     next = target;
@@ -67,7 +95,8 @@ export function initSpatialNavigation(): () => void {
         });
 
         if (next) {
-            (next as HTMLElement).focus();
+            (next as HTMLElement).focus({ preventScroll: true });
+            (next as HTMLElement).scrollIntoView({ behavior: 'smooth', block: 'center' });
             e.preventDefault();
         }
     };
